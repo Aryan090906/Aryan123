@@ -2,29 +2,19 @@
 
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
-
-// Generate static params for all topics
-export function generateStaticParams() {
-  return [
-    { id: 'arrays' },
-    { id: 'strings' },
-    { id: 'linked-list' },
-    { id: 'stack' },
-  ];
-}
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowLeft, BookOpen, Code2, HelpCircle, CheckCircle2, Lock, Trophy } from 'lucide-react';
 import { getTopicById } from '@/lib/data';
 import { useUserProgress } from '@/context/UserProgressContext';
-import { getDifficultyColor, cn } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 
 export default function TopicDetailPage() {
   const params = useParams();
   const topicId = params.id as string;
   const topic = getTopicById(topicId);
   const [activeTab, setActiveTab] = useState<'notes' | 'problems' | 'quiz'>('notes');
-  const { isProblemSolved, getTopicProgress, progress } = useUserProgress();
+  const { isProblemSolved, getTopicProgress } = useUserProgress();
 
   if (!topic) {
     return (

@@ -1,28 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-
-// Generate static params for all problems
-export function generateStaticParams() {
-  const problems = [
-    // Arrays
-    'arrays-1', 'arrays-2', 'arrays-3', 'arrays-4', 'arrays-5',
-    'arrays-6', 'arrays-7', 'arrays-8', 'arrays-9', 'arrays-10',
-    'arrays-11', 'arrays-12', 'arrays-13', 'arrays-14', 'arrays-15', 'arrays-boss',
-    // Strings
-    'strings-1', 'strings-2', 'strings-3', 'strings-4', 'strings-5',
-    'strings-6', 'strings-7', 'strings-8', 'strings-9', 'strings-10',
-    'strings-11', 'strings-12', 'strings-13', 'strings-14', 'strings-15', 'strings-boss',
-    // Linked List
-    'll-1', 'll-2', 'll-3', 'll-4', 'll-5', 'll-6', 'll-7', 'll-8', 'll-9', 'll-10',
-    'll-11', 'll-12', 'll-13', 'll-14', 'll-15', 'll-boss',
-    // Stack
-    'stack-1', 'stack-2', 'stack-3', 'stack-4', 'stack-5', 'stack-6', 'stack-7', 'stack-8', 'stack-9', 'stack-10',
-    'stack-11', 'stack-12', 'stack-13', 'stack-14', 'stack-15', 'stack-boss',
-  ];
-  return problems.map(id => ({ id }));
-}
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Lightbulb, CheckCircle2, XCircle, Play, Trophy, RotateCcw } from 'lucide-react';
@@ -32,7 +11,6 @@ import { getDifficultyColor, cn } from '@/lib/utils';
 
 export default function PracticePage() {
   const params = useParams();
-  const router = useRouter();
   const problemId = params.id as string;
   const problemData = getProblemById(problemId);
   
@@ -43,7 +21,7 @@ export default function PracticePage() {
   const [showHint, setShowHint] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState<'description' | 'hints'>('description');
   
-  const { isProblemSolved, markProblemSolved, progress } = useUserProgress();
+  const { isProblemSolved, markProblemSolved } = useUserProgress();
 
   useEffect(() => {
     if (problemData) {

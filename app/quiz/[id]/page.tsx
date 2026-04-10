@@ -2,16 +2,6 @@
 
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
-
-// Generate static params for all topics
-export function generateStaticParams() {
-  return [
-    { id: 'arrays' },
-    { id: 'strings' },
-    { id: 'linked-list' },
-    { id: 'stack' },
-  ];
-}
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, CheckCircle2, XCircle, Trophy, RotateCcw, HelpCircle } from 'lucide-react';
@@ -32,7 +22,7 @@ export default function QuizPage() {
   const [answeredQuestions, setAnsweredQuestions] = useState<Set<number>>(new Set());
   const [quizComplete, setQuizComplete] = useState(false);
   
-  const { updateQuizScore, progress } = useUserProgress();
+  const { updateQuizScore } = useUserProgress();
 
   if (!topic) {
     return (
